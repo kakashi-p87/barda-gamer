@@ -2,6 +2,7 @@ package com.bardagamer.web.ui.Layout;
 
 import com.bardagamer.web.service.MenuService;
 import com.bardagamer.web.ui.component.MenuBar;
+import com.bardagamer.web.ui.view.LogInView;
 import com.bardagamer.web.ui.view.RegisterView;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.router.RouterLayout;
@@ -11,6 +12,8 @@ import javax.annotation.PostConstruct;
 
 
 public class MainLayout extends Div implements RouterLayout {
+
+    public static final String CSS = "styles/shared-styles.html";
 
     @Autowired
     private MenuService menuService;
@@ -27,6 +30,10 @@ public class MainLayout extends Div implements RouterLayout {
 
         menuBar.getSignUpButton().addClickListener(e ->{
             menuBar.getSignUpButton().getUI().ifPresent(ui -> ui.navigate(RegisterView.PATH));
+        });
+
+        menuBar.getLoginButton().addClickListener(e ->{
+            menuBar.getLoginButton().getUI().ifPresent(ui -> ui.navigate(LogInView.PATH));
         });
 
         Div ad = new Div();

@@ -20,7 +20,7 @@ public class MainView extends VerticalLayout {
         setSizeFull();
         setClassName("content");
 
-        add(new Text("contet main"));
+        add(new Text("content main"));
 
     }
 

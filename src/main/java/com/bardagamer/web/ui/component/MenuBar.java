@@ -20,10 +20,11 @@ public class MenuBar extends HorizontalLayout {
     private Tabs tabs;
     private Button signUpButton;
     private Button loginButton;
+    private Boolean userLogin;
 
 
-    public MenuBar(String url, List<? extends MenuItem> menuItems){
-        this(new Image( url != null ? url : LOGO_PATH, "logo"), new Tabs(), new Button(), new Button());
+    public MenuBar(Boolean userLogin, String url, List<? extends MenuItem> menuItems){
+        this(new Image( url != null ? url : LOGO_PATH, "logo"), new Tabs(), new Button(), new Button(), userLogin);
 
         logo.setHeight("60px");
         logo.setWidth("70px");
@@ -42,9 +43,11 @@ public class MenuBar extends HorizontalLayout {
         buttons.setAlignItems(Alignment.END);
 
         signUpButton.setText("Registrarse");
+        signUpButton.setVisible(!userLogin);
 
 
         loginButton.setText("Login");
+        loginButton.setVisible(!userLogin);
 
         buttons.add(signUpButton, loginButton);
         buttons.setWidth("10%");
@@ -56,11 +59,12 @@ public class MenuBar extends HorizontalLayout {
         add(buttons);
     }
 
-    public MenuBar( Image logo, Tabs tabs, Button signUpButton, Button loginButton) {
+    public MenuBar( Image logo, Tabs tabs, Button signUpButton, Button loginButton, Boolean userLogin) {
         this.logo = logo;
         this.tabs = tabs;
         this.signUpButton = signUpButton;
         this.loginButton = loginButton;
+        this.userLogin = userLogin;
 
         setHeight("60px");
         setWidth("100%");
@@ -97,5 +101,13 @@ public class MenuBar extends HorizontalLayout {
 
     public void setLoginButton(Button loginButton) {
         this.loginButton = loginButton;
+    }
+
+    public Boolean getUserLogin() {
+        return userLogin;
+    }
+
+    public void setUserLogin(Boolean userLogin) {
+        this.userLogin = userLogin;
     }
 }

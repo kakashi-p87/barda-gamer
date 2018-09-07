@@ -1,10 +1,13 @@
 package com.bardagamer.web.ui.Layout;
 
+import com.bardagamer.web.component.SessionComponent;
 import com.bardagamer.web.service.MenuService;
 import com.bardagamer.web.ui.component.MenuBar;
 import com.bardagamer.web.ui.view.LogInView;
 import com.bardagamer.web.ui.view.RegisterView;
 import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.html.Header;
+import com.vaadin.flow.component.html.Nav;
 import com.vaadin.flow.router.RouterLayout;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -14,6 +17,9 @@ import javax.annotation.PostConstruct;
 public class MainLayout extends Div implements RouterLayout {
 
     public static final String CSS = "styles/shared-styles.html";
+
+    @Autowired
+    private SessionComponent sessionComponent;
 
     @Autowired
     private MenuService menuService;
@@ -26,7 +32,7 @@ public class MainLayout extends Div implements RouterLayout {
 
     @PostConstruct
     public void init(){
-        menuBar = new MenuBar(null, menuService.getMenus());
+        menuBar = new MenuBar(sessionComponent.getUser() != null,null, menuService.getMenus());
 
         menuBar.getSignUpButton().addClickListener(e ->{
             menuBar.getSignUpButton().getUI().ifPresent(ui -> ui.navigate(RegisterView.PATH));
@@ -45,7 +51,13 @@ public class MainLayout extends Div implements RouterLayout {
         Div ad3 = new Div();
         ad3.setClassName("ad-div3");
 
-        add(menuBar);
+
+
+        Nav nav = new Nav(menuBar);
+
+        Header header = new Header(nav);
+
+        add(header);
         add(ad);
         add(ad2);
         add(ad3);
